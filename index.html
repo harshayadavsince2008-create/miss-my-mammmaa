@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8b001e">
+
+<title>A Little Surprise For You ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --red: #a80027;
+    --dark-red: #40000e;
+    --pink: #ff9ebd;
+    --white: #fff5f7;
+}
+
+body {
+    background: var(--dark-red);
+    color: white;
+    font-family: Georgia, serif;
+    overflow-x: hidden;
+}
+
+button, input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: opacity 1s ease;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================
+   1. SECRET PASSWORD SCREEN
+========================= */
+
+#lockScreen {
+    z-index: 10;
+    background:
+        radial-gradient(circle at top, #35000e, #090007);
+}
+
+.lock-card {
+    width: min(88%, 350px);
+    padding: 32px 24px;
+    text-align: center;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, .045);
+    border: 1px solid rgba(255, 255, 255, .12);
+    box-shadow: 0 15px 60px #0005;
+    backdrop-filter: blur(15px);
+}
+
+.lock-heart {
+    font-size: 46px;
+    margin-bottom: 18px;
+    animation: heartbeat 1.5s infinite;
+}
+
+.lock-card h1 {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.lock-card p {
+    color: #d9b9c1;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.password-input {
+    display: block;
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+    text-align: center;
+    border: 1px solid #a84a63;
+    outline: none;
+    border-radius: 12px;
+    background: #20000b;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.password-input:focus {
+    border-color: #ff9ebd;
+    box-shadow: 0 0 15px #ff477e33;
+}
+
+.unlock-button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 17px;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    background: linear-gradient(135deg, #e91e63, #a00035);
+    box-shadow: 0 6px 20px #e91e6333;
+}
+
+.lock-error {
+    min-height: 22px;
+    margin-top: 12px;
+    color: #ff9ebd !important;
+}
+
+/* =========================
+   2. FLOWER REVEAL
+========================= */
+
+#flowerScreen {
+    z-index: 8;
+    background: #fff0f5;
+    color: #9b0034;
+}
+
+.bouquet {
+    position: absolute;
+    z-index: 4;
+    font-size: clamp(90px, 25vw, 160px);
+    filter: drop-shadow(0 10px 15px #b4004030);
+    animation: bouquetAppear 2s ease both;
+    transition: opacity 1s, transform 1s;
+}
+
+@keyframes bouquetAppear {
+    from {
+        opacity: 0;
+        transform: scale(.1) rotate(-30deg);
+    }
+
+    65% {
+        opacity: 1;
+        transform: scale(1.15) rotate(8deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+.flower-garden {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-rows: repeat(11, minmax(0, 1fr));
+    overflow: hidden;
+}
+
+.flower {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: scale(0) rotate(-120deg);
+    animation: bloom 1.2s cubic-bezier(.17,.67,.25,1.3) forwards;
+    filter: drop-shadow(0 3px 4px #8b234733);
+    user-select: none;
+}
+
+@keyframes bloom {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-120deg);
+    }
+
+    60% {
+        opacity: 1;
+        transform: scale(1.2) rotate(15deg);
+    }
+
+    80% {
+        transform: scale(.9) rotate(-7deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+.flower-message {
+    position: relative;
+    z-index: 5;
+    width: min(88%, 370px);
+    padding: 25px 20px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, .95);
+    box-shadow: 0 15px 50px #6e003333;
+    text-align: center;
+    animation: fadeUp 1.2s ease 2.2s both;
+}
+
+.flower-message h1 {
+    font-size: clamp(30px, 8vw, 42px);
+    line-height: 1.3;
+}
+
+.flower-message p {
+    margin-top: 14px;
+    line-height: 1.8;
+}
+
+.main-button {
+    border: none;
+    padding: 13px 23px;
+    border-radius: 30px;
+    margin-top: 20px;
+    color: white;
+    background: linear-gradient(135deg, #ff477e, #c40043);
+    box-shadow: 0 5px 20px #b4004033;
+    transition: transform .25s;
+}
+
+.main-button:hover {
+    transform: scale(1.05);
+}
+
+/* =========================
+   3. PHOTO COLLAGE
+========================= */
+
+#collageScreen {
+    position: relative;
+    min-height: 100vh;
+    padding: 70px 18px;
+    background:
+        radial-gradient(ellipse at top, #a50030, #40000e 75%);
+    text-align: center;
+    overflow: hidden;
+}
+
+.collage-title {
+    position: relative;
+    z-index: 3;
+    margin-bottom: 35px;
+    font-size: clamp(32px, 7vw, 55px);
+    font-style: italic;
+    text-shadow: 0 0 20px #ff86a6;
+}
+
+.photo-grid {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    width: min(100%, 720px);
+    margin: auto;
+}
+
+.photo-card {
+    background: #fff7f0;
+    padding: 8px 8px 20px;
+    box-shadow: 0 8px 25px #0004;
+    color: #5a1427;
+    transform: rotate(var(--rotation));
+    transition: transform .4s;
+    animation: photoFloat 4s ease-in-out infinite;
+    animation-delay: var(--float-delay);
+}
+
+.photo-card:hover {
+    transform: rotate(0deg) scale(1.06);
+    z-index: 4;
+}
+
+.photo-card img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    display: block;
+    object-fit: cover;
+    background: #f4ccd7;
+}
+
+.photo-card p {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.photo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 3 / 4;
+    background: linear-gradient(135deg, #ffd5e2, #d94d78);
+    color: white;
+    font-size: 35px;
+}
+
+@keyframes photoFloat {
+    0%, 100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -6px;
+    }
+}
+
+.collage-message {
+    position: relative;
+    z-index: 3;
+    margin: 45px auto 0;
+    font-size: clamp(26px, 6vw, 42px);
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.section-button {
+    position: relative;
+    z-index: 4;
+}
+
+/* =========================
+   GENERAL LOVE SECTIONS
+========================= */
+
+.content-screen {
+    position: relative;
+    min-height: 100vh;
+    padding: 70px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: radial-gradient(circle at top, #ad123e, #35000e);
+}
+
+.content-inner {
+    position: relative;
+    z-index: 3;
+    width: min(100%, 650px);
+}
+
+.script-title {
+    font-size: clamp(32px, 8vw, 57px);
+    font-style: italic;
+    line-height: 1.3;
+    text-shadow: 0 0 20px #ff8da8;
+}
+
+.love-copy {
+    margin-top: 25px;
+    font-size: clamp(17px, 4vw, 21px);
+    line-height: 2;
+}
+
+.love-copy p {
+    margin: 18px 0;
+}
+
+.small-note {
+    color: #ffcad8;
+    font-size: 14px;
+}
+
+/* =========================
+   4. LETTERS AND MESSAGES
+========================= */
+
+.letter-card {
+    margin: 28px auto;
+    padding: 25px 22px;
+    max-width: 520px;
+    border: 1px solid #ffb6cb44;
+    border-radius: 20px;
+    background: #ffffff0a;
+    box-shadow: 0 12px 35px #0002;
+    line-height: 2;
+    text-align: left;
+}
+
+.letter-card h2 {
+    text-align: center;
+    margin-bottom: 18px;
+    color: #ffb6cb;
+}
+
+.letter-card p {
+    margin-bottom: 14px;
+}
+
+.message-list {
+    display: grid;
+    gap: 15px;
+    margin-top: 28px;
+}
+
+.message-item {
+    padding: 17px;
+    border-radius: 15px;
+    background: #ffffff0c;
+    border: 1px solid #ffffff13;
+    line-height: 1.8;
+    text-align: left;
+}
+
+/* =========================
+   5. MUSIC LIST
+========================= */
+
+.music-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 30px;
+}
+
+.song-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px;
+    border-radius: 17px;
+    border: 1px solid #ffb6cb33;
+    background: #ffffff0a;
+    text-align: left;
+    transition: transform .25s, background .25s;
+}
+
+.song-card:hover {
+    transform: translateY(-4px);
+    background: #ffffff15;
+}
+
+.song-icon {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.song-card h3 {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.song-card p {
+    color: #e7bac7;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.song-card a {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 9px 13px;
+    border-radius: 20px;
+    background: #e91e63;
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.song-play-button {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #ff477e, #c40043);
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+    transition: transform .2s, opacity .2s;
+}
+
+.song-play-button:hover {
+    transform: scale(1.04);
+}
+
+.audio-player-wrap {
+    margin: 24px auto 0;
+    padding: 18px;
+    border: 1px solid #ffb6cb33;
+    border-radius: 17px;
+    background: #ffffff0a;
+    text-align: center;
+}
+
+.audio-player-wrap audio {
+    display: block;
+    width: 100%;
+    margin-top: 14px;
+}
+
+#nowPlaying {
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+/* =========================
+   6. HEART FINALE
+========================= */
+
+#finalScreen {
+    background: linear-gradient(135deg, #ef234d, #85001f, #39000e);
+}
+
+.final-hearts {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.final-heart {
+    position: absolute;
+    top: -50px;
+    animation: falling linear forwards;
+}
+
+@keyframes falling {
+    0% {
+        transform: translateY(-5vh) rotate(0);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: .9;
+    }
+
+    100% {
+        transform: translateY(115vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.final-content {
+    position: relative;
+    z-index: 3;
+    width: 90%;
+    max-width: 650px;
+}
+
+.final-content h1 {
+    font-size: clamp(34px, 9vw, 65px);
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.final-content p {
+    margin-top: 22px;
+    line-height: 2;
+    font-size: clamp(17px, 4vw, 22px);
+}
+
+/* =========================
+   UTILITIES
+========================= */
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 500px) {
+    .photo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .music-list {
+        grid-template-columns: 1fr;
+    }
+
+    .content-screen {
+        padding: 55px 18px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+/* =========================
+   EXTRA VIDEO SURPRISE
+========================= */
+#videoScreen {
+    z-index: 20;
+    background: radial-gradient(circle at top, #65001d, #18000a 72%);
+    padding: 22px;
+    overflow-y: auto;
+}
+.video-surprise-card {
+    width: min(92%, 720px);
+    max-height: 92vh;
+    overflow-y: auto;
+    text-align: center;
+    padding: clamp(22px, 5vw, 42px);
+    border-radius: 28px;
+    background: rgba(255, 255, 255, .07);
+    border: 1px solid rgba(255, 255, 255, .16);
+    box-shadow: 0 18px 65px rgba(0, 0, 0, .35);
+    backdrop-filter: blur(12px);
+}
+.video-surprise-card h1 {
+    color: #ffb4cc;
+    font-size: clamp(25px, 5vw, 40px);
+    line-height: 1.3;
+    margin-bottom: 14px;
+}
+.video-surprise-card p {
+    color: #ffe5ed;
+    line-height: 1.7;
+    margin-bottom: 22px;
+}
+#surpriseVideo {
+    display: none;
+    width: 100%;
+    max-height: 52vh;
+    margin: 22px auto 8px;
+    border-radius: 16px;
+    background: #080006;
+}
+#videoStatus {
+    font-size: 13px;
+    color: #f5c9d6;
+    margin-top: 12px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =====================================
+     PASSWORD SCREEN
+===================================== -->
+
+<section class="screen" id="lockScreen">
+
+    <div class="lock-card">
+
+        <div class="lock-heart">❤️</div>
+
+        <h1>A Little Surprise</h1>
+
+        <p>
+           your bachhaaa made something special for you.
+            <br>
+            Can you guess the secret word? 💌
+        </p>
+
+        <form id="passwordForm">
+
+            <input
+                id="passwordInput"
+                class="password-input"
+                type="password"
+                placeholder="Enter the secret word"
+                autocomplete="off"
+                aria-label="Secret password"
+                required
+            >
+
+            <button class="unlock-button" type="submit">
+                Unlock My Surprise 💗
+            </button>
+
+        </form>
+
+        <p class="lock-error" id="passwordError" aria-live="polite"></p>
+
+        <p class="small-note">
+            A little secret, just for you mammaaa.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     FLOWER SCREEN
+===================================== -->
+
+<section class="screen hidden" id="flowerScreen">
+
+    <div class="flower-garden" id="flowerGarden"></div>
+
+    <div class="bouquet" id="bouquet">💐</div>
+
+    <div class="flower-message" id="flowerMessage">
+
+        <h1>I MISS YOU<br>BABY ❤️</h1>
+
+        <p>
+            If I could send you one thing today,
+            it would be a million  flowers
+            and a billion hugs. 🌸
+        </p>
+
+        <button class="main-button" onclick="openCollage()">
+            Open Your Surprise 💌
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     PHOTO COLLAGE
+===================================== -->
+
+<section class="hidden" id="collageScreen">
+
+    <h1 class="collage-title">
+        I love you so much, baby ❤️
+    </h1>
+
+    <div class="photo-grid" id="photoGrid">
+
+        <!-- Replace these placeholders with your own photos. -->
+
+        <div class="photo-card"
+             style="--rotation:-6deg; --float-delay:0s">
+            <div class="our-photo.jpg">🌹</div>
+            <p>My favorite person</p>
+        </div>
+
+        <div class="photo-card"
+             style="--rotation:5deg; --float-delay:.3s">
+            <div class="photo23.jpg">💗</div>
+            <p>My happy place</p>
+        </div>
+
+        <div class="photo-card"
+             style="--rotation:-3deg; --float-delay:.6s">
+            <div class="photo24.jpg">🥹</div>
+            <p>My soft spot</p>
+        </div>
+
+        <div class="photo-card"
+             style="--rotation:4deg; --float-delay:.2s">
+            <div class="photo4.jpg">🫶</div>
+            <p>My favorite smile</p>
+        </div>
+
+        <div class="photo-card"
+             style="--rotation:-5deg; --float-delay:.5s">
+            <div class="photo55.jpeg">🌷</div>
+            <p>My sweetest thought</p>
+        </div>
+
+        <div class="photo-card"
+             style="--rotation:3deg; --float-delay:.8s">
+            <div class="photo23.jpg">❤️</div>
+            <p>Always special</p>
+        </div>
+
+    </div>
+
+    <div class="collage-message">
+        I wish you were here with me. 💕
+    </div>
+
+    <button class="main-button section-button" onclick="openLetter()">
+        A Letter For You 💌
+    </button>
+
+</section>
+
+
+<!-- =====================================
+     EMOTIONAL LETTER
+===================================== -->
+
+<section class="content-screen hidden" id="letterScreen">
+
+    <div class="content-inner">
+
+        <h1 class="script-title">My Dearest,</h1>
+
+        <div class="letter-card">
+
+            <h2>Something From My Heart 💗</h2>
+
+            <p>
+                I don't always know how to put my feelings into words,
+                but I hope this little surprise helps.
+            </p>
+
+            <p>
+                You have a special way of making ordinary moments
+                feel memorable. Even a small conversation with you
+                can turn an ordinary day into a better one.
+            </p>
+
+            <p>
+                When I miss you, I remember the little things:
+                the laughs, the silly conversations,our little video calls, putting you to sleep and the moments
+                that make me smile for no reason.
+            </p>
+
+            <p>
+                I don't need every day to be perfect.
+                I just hope we keep making beautiful memories,
+                laughing at ridiculous things, and being there
+                for each other.
+            </p>
+
+            <p>
+                Until the next time I see you,
+                here's a little reminder:
+                <strong>you are appreciated more than you know. ❤️</strong>
+            </p>
+
+            <p style="text-align:right">
+                With lots of love,<br>
+                Your favorite weirdo 💌
+            </p>
+
+        </div>
+
+        <button class="main-button" onclick="openFunMessages()">
+            Okay, Now Let's Be Silly 😂
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     FUNNY AND CUTE MESSAGES
+===================================== -->
+
+<section class="content-screen hidden" id="funScreen">
+
+    <div class="content-inner">
+
+        <h1 class="script-title">Important Information 😂</h1>
+
+        <p class="love-copy">
+            Please read these very serious announcements.
+        </p>
+
+        <div class="message-list">
+
+            <div class="message-item">
+                🚨 <strong>i am so crazy that:</strong>
+                even if we are so tightly packed
+                i will ask you to pull me closer to you
+            </div>
+
+            <div class="message-item">
+                🥹 <strong>Official complaint:</strong>
+                Why can't I teleport?
+                I have places to be and hugs to give.
+            </div>
+
+            <div class="message-item">
+                🍟 <strong>Very important question:</strong>
+                If I give you tht last part of the cone ice cream,
+                does that count as true love?
+
+            </div>
+
+            <div class="message-item">
+                🤨 <strong>cutest guesture en gottaa:</strong>
+                you know in gym, you are like the sun
+                and im your earth, MP is my moon.
+                i revolve around you, and MP revolves around me
+            </div>
+
+            <div class="message-item">
+                💗 <strong>Final announcement:</strong>
+                You are stuck with my terrible jokes.
+                No refunds. 😂❤️
+            </div>
+
+        </div>
+
+        <button class="main-button" onclick="openMusic()">
+            Our Little Playlist 🎵
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     TOP SONGS
+===================================== -->
+
+<section class="content-screen hidden" id="musicScreen">
+
+    <div class="content-inner">
+
+        <h1 class="script-title">Our Top Songs 🎵</h1>
+
+        <p class="love-copy">
+            Songs that remind me of you. ❤️
+        </p>
+
+        <div class="music-list">
+
+            <div class="song-card">
+                <div class="song-icon">🎧</div>
+                <h3>Song 1</h3>
+                <p>My first website for you ❤️</p>
+                <button class="song-play-button" type="button" onclick="playSong(0)">▶ Play Song 1</button>
+            </div>
+
+            <div class="song-card">
+                <div class="song-icon">🌙</div>
+                <h3>Song 2</h3>
+                <p>how i like to see you 💗</p>
+                <button class="song-play-button" type="button" onclick="playSong(1)">▶ Play Song 2</button>
+            </div>
+
+            <div class="song-card">
+                <div class="song-icon">💌</div>
+                <h3>Song 3</h3>
+                <p>For our special moments 💕</p>
+                <button class="song-play-button" type="button" onclick="playSong(2)">▶ Play Song 3</button>
+            </div>
+
+            <div class="song-card">
+                <div class="song-icon">🫶</div>
+                <h3>Song 4</h3>
+                <p>nin aggi this is how u entered in maa life🌷</p>
+                <button class="song-play-button" type="button" onclick="playSong(3)">▶ Play Song 4</button>
+            </div>
+
+            <div class="song-card">
+                <div class="song-icon">💃</div>
+                <h3>Song 5</h3>
+                <p>For our happy moments ✨</p>
+                <button class="song-play-button" type="button" onclick="playSong(4)">▶ Play Song 5</button>
+            </div>
+
+            <div class="song-card">
+                <div class="song-icon">😂</div>
+                <h3>Song 6</h3>
+                <p>this music and your v bar tricep exercise is the sexiest combo😂</p>
+                <button class="song-play-button" type="button" onclick="playSong(5)">▶ Play Song 6</button>
+            </div>
+
+        </div>
+
+        <div class="audio-player-wrap">
+            <p id="nowPlaying" aria-live="polite">Choose a song and it will play here 🎶</p>
+            <audio id="audioPlayer" controls preload="none">
+                Your browser does not support audio playback.
+            </audio>
+            <p id="musicStatus" class="small-note" aria-live="polite">
+                Save music1.mp3, music2.mp3, etc. beside index.html.
+            </p>
+        </div>
+
+        <p class="love-copy">
+            One day, we'll have our own memories
+            attached to every song. 💗
+        </p>
+
+        <button class="main-button" onclick="openFinal()">
+            One Last Surprise ❤️
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     FINAL SCREEN
+===================================== -->
+
+<section class="screen hidden" id="finalScreen">
+
+    <div class="final-hearts" id="finalHearts"></div>
+
+    <div class="final-content">
+
+        <h1>I love you to the moon and back ❤️</h1>
+
+        <p>
+            🌹 You make ordinary moments special.<br>
+            💗 You make silly moments unforgettable.<br>
+            🫶 And you deserve all the little things
+            that make you smile.
+        </p>
+
+        <p>
+            Until our next hug,
+            here's a thousand virtual ones. 🫂
+        </p>
+
+        <h2 style="margin-top:30px">
+            I MISS YOU, kuchhuuu puchuuuu
+        </h2>
+
+        <button class="main-button" onclick="openVideoSurprise()">
+            One More Thing... 🎥❤️
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     EXTRA VIDEO SURPRISE
+===================================== -->
+
+<section class="screen hidden" id="videoScreen">
+    <div class="video-surprise-card">
+        <div style="font-size:42px; margin-bottom:12px;">💌🎥💗</div>
+        <h1>Ukk wht i made a video for u bruce lee ❤️</h1>
+        <p>A little something made just for you. Press play, baby. 🫶</p>
+        <button class="main-button" id="playSurpriseVideoButton" type="button" onclick="playSurpriseVideo()">
+            ▶ Play Your Video ❤️
+        </button>
+        <video id="surpriseVideo" controls playsinline preload="metadata">
+            <source src="video.mp4" type="video/mp4">
+            Sorry, your browser does not support video playback.
+        </video>
+        <p id="videoStatus" aria-live="polite">Keep video.mp4 in the same folder as index.html.</p>
+        <button class="main-button" style="margin-top:14px;" onclick="restartWebsite()">
+            Start Our Story Again 🌸
+        </button>
+    </div>
+</section>
+
+
+<script>
+
+/* =====================================
+   PASSWORD: BRUCE LEE
+===================================== */
+
+const lockScreen = document.getElementById("lockScreen");
+const passwordForm = document.getElementById("passwordForm");
+const passwordInput = document.getElementById("passwordInput");
+const passwordError = document.getElementById("passwordError");
+
+passwordForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const enteredPassword = passwordInput.value
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+
+    if (enteredPassword === "bruce lee") {
+
+        passwordError.textContent = "";
+
+        lockScreen.style.transition = "opacity 1s ease";
+        lockScreen.style.opacity = "0";
+
+        setTimeout(() => {
+
+            lockScreen.classList.add("hidden");
+
+            document.getElementById("flowerScreen")
+                .classList.remove("hidden");
+
+            startFlowerReveal();
+
+        }, 1000);
+
+    } else {
+
+        passwordError.textContent =
+            "Oops! That's not the secret word. Try again 💗";
+
+        passwordInput.value = "";
+        passwordInput.focus();
+
+    }
+
+});
+
+
+/* =====================================
+   FULL-SCREEN FLOWER REVEAL
+===================================== */
+
+const flowerGarden = document.getElementById("flowerGarden");
+
+const flowerTypes = [
+    "🌸", "🌹", "🌺", "🌷",
+    "🌼", "🪷", "🌻", "💮",
+    "🏵️", "🌸", "🌺", "🌹"
+];
+
+let flowerStarted = false;
+
+function startFlowerReveal() {
+
+    if (flowerStarted) return;
+
+    flowerStarted = true;
+
+    flowerGarden.innerHTML = "";
+
+    const columns = window.innerWidth < 500 ? 6 : 9;
+    const rows = window.innerWidth < 500 ? 13 : 11;
+
+    flowerGarden.style.gridTemplateColumns =
+        `repeat(${columns}, minmax(0, 1fr))`;
+
+    flowerGarden.style.gridTemplateRows =
+        `repeat(${rows}, minmax(0, 1fr))`;
+
+    const centerX = (columns - 1) / 2;
+    const centerY = (rows - 1) / 2;
+
+    const positions = [];
+
+    for (let row = 0; row < rows; row++) {
+
+        for (let col = 0; col < columns; col++) {
+
+            positions.push({
+                row,
+                col,
+                distance: Math.hypot(
+                    col - centerX,
+                    row - centerY
+                )
+            });
+
+        }
+
+    }
+
+    // Flowers bloom outward from the center.
+
+    positions.sort((a, b) => a.distance - b.distance);
+
+    positions.forEach((pos, index) => {
+
+        const flower = document.createElement("div");
+
+        flower.className = "flower";
+
+        flower.textContent =
+            flowerTypes[
+                Math.floor(Math.random() * flowerTypes.length)
+            ];
+
+        flower.style.fontSize =
+            `${30 + Math.random() * 36}px`;
+
+        // Staggered timing makes the garden fill gradually.
+
+        flower.style.animationDelay =
+            `${index * 0.035}s`;
+
+        flowerGarden.appendChild(flower);
+
+    });
+
+    // Fade the bouquet away after the flowers begin blooming.
+
+    setTimeout(() => {
+
+        const bouquet = document.getElementById("bouquet");
+
+        bouquet.style.opacity = "0";
+        bouquet.style.transform = "scale(1.5)";
+
+        setTimeout(() => {
+            bouquet.classList.add("hidden");
+        }, 1000);
+
+    }, 1500);
+
+}
+
+
+/* =====================================
+   SECTION NAVIGATION
+===================================== */
+
+function showSection(id) {
+
+    // Stop music whenever the user leaves the music section.
+    // This also resets the song so it won't continue in another section.
+    const audioPlayer = document.getElementById("audioPlayer");
+    if (id !== "musicScreen" && audioPlayer) {
+        audioPlayer.pause();
+        audioPlayer.currentTime = 0;
+    }
+
+    const allSections = [
+        "flowerScreen",
+        "collageScreen",
+        "letterScreen",
+        "funScreen",
+        "musicScreen",
+        "finalScreen",
+        "videoScreen"
+    ];
+
+    allSections.forEach(sectionId => {
+
+        document.getElementById(sectionId)
+            .classList.add("hidden");
+
+    });
+
+    const target = document.getElementById(id);
+
+    target.classList.remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+function openCollage() {
+    showSection("collageScreen");
+}
+
+function openLetter() {
+    showSection("letterScreen");
+}
+
+function openFunMessages() {
+    showSection("funScreen");
+}
+
+function openMusic() {
+    showSection("musicScreen");
+}
+
+function openFinal() {
+    showSection("finalScreen");
+    startFinalHearts();
+}
+
+
+
+
+/* =====================================
+   FINAL VIDEO SURPRISE
+   Keep video.mp4 beside index.html.
+===================================== */
+
+function openVideoSurprise() {
+    showSection("videoScreen");
+    const video = document.getElementById("surpriseVideo");
+    video.pause();
+    video.currentTime = 0;
+    video.style.display = "none";
+    document.getElementById("playSurpriseVideoButton").style.display = "inline-block";
+    document.getElementById("videoStatus").textContent =
+        "Keep video.mp4 in the same folder as index.html.";
+}
+
+function playSurpriseVideo() {
+    const video = document.getElementById("surpriseVideo");
+    const status = document.getElementById("videoStatus");
+    video.style.display = "block";
+    video.load();
+    video.play().then(() => {
+        document.getElementById("playSurpriseVideoButton").style.display = "none";
+        status.textContent = "Just for you ❤️";
+    }).catch(() => {
+        status.textContent = "Couldn't play the video. Check that video.mp4 is beside index.html, then press play on the video.";
+        video.controls = true;
+    });
+}
+
+/* =====================================
+   LOCAL MUSIC PLAYER
+   Put music1.mp3 through music6.mp3
+   in the same folder as index.html.
+===================================== */
+
+const playlist = [
+    { title: "Song 1", file: "music1.mp3" },
+    { title: "Song 2", file: "music2.mp3" },
+    { title: "Song 3", file: "music3.mp3" },
+    { title: "Song 4", file: "music4.mp3" },
+    { title: "Song 5", file: "music5.mp3" },
+    { title: "Song 6", file: "music6.mp3" }
+];
+
+const audioPlayer = document.getElementById("audioPlayer");
+const nowPlaying = document.getElementById("nowPlaying");
+const musicStatus = document.getElementById("musicStatus");
+
+function playSong(index) {
+    const song = playlist[index];
+    if (!song) return;
+
+    // Clicking a song loads it into the visible player and starts playback.
+    audioPlayer.src = song.file;
+    audioPlayer.load();
+    nowPlaying.textContent = "Now playing: " + song.title + " 🎵";
+    musicStatus.textContent = "Loading song...";
+
+    const playAttempt = audioPlayer.play();
+
+    if (playAttempt && typeof playAttempt.then === "function") {
+        playAttempt
+            .then(() => {
+                musicStatus.textContent = "Enjoy the music! ❤️";
+            })
+            .catch(() => {
+                musicStatus.textContent =
+                    "Couldn't play the file. Check that " + song.file +
+                    " is beside index.html and the filename/extension is correct.";
+            });
+    }
+}
+
+audioPlayer.addEventListener("ended", () => {
+    musicStatus.textContent = "Song finished. Choose another one 🎶";
+});
+
+audioPlayer.addEventListener("error", () => {
+    musicStatus.textContent =
+        "Audio file couldn't be loaded. Check the filename and make sure the file is in the same folder as index.html.";
+});
+
+
+/* =====================================
+   FALLING HEARTS
+===================================== */
+
+let heartTimer = null;
+
+function startFinalHearts() {
+
+    const container = document.getElementById("finalHearts");
+
+    if (heartTimer) {
+        clearInterval(heartTimer);
+    }
+
+    container.innerHTML = "";
+
+    heartTimer = setInterval(() => {
+
+        const heart = document.createElement("span");
+
+        heart.className = "final-heart";
+
+        const hearts = [
+            "❤️", "💗", "💕", "💖", "💘"
+        ];
+
+        heart.textContent =
+            hearts[Math.floor(Math.random() * hearts.length)];
+
+        heart.style.left = Math.random() * 100 + "%";
+
+        heart.style.fontSize =
+            (15 + Math.random() * 27) + "px";
+
+        heart.style.animationDuration =
+            (5 + Math.random() * 5) + "s";
+
+        container.appendChild(heart);
+
+        heart.addEventListener("animationend", () => {
+            heart.remove();
+        });
+
+    }, 180);
+
+}
+
+
+/* =====================================
+   RESTART
+===================================== */
+
+function restartWebsite() {
+
+    const surpriseVideo = document.getElementById("surpriseVideo");
+    if (surpriseVideo) {
+        surpriseVideo.pause();
+        surpriseVideo.currentTime = 0;
+        surpriseVideo.style.display = "none";
+    }
+
+    if (heartTimer) {
+        clearInterval(heartTimer);
+        heartTimer = null;
+    }
+
+    document.getElementById("finalHearts").innerHTML = "";
+
+    flowerStarted = false;
+
+    flowerGarden.innerHTML = "";
+
+    const bouquet = document.getElementById("bouquet");
+
+    bouquet.classList.remove("hidden");
+    bouquet.style.opacity = "1";
+    bouquet.style.transform = "";
+
+    showSection("lockScreen");
+
+    // Restore the original password screen.
+
+    lockScreen.style.opacity = "1";
+
+    passwordInput.value = "";
+    passwordError.textContent = "";
+
+}
+
+
+/* =====================================
+   HANDLE SCREEN RESIZING
+===================================== */
+
+window.addEventListener("resize", () => {
+
+    if (
+        !document.getElementById("flowerScreen")
+            .classList.contains("hidden")
+        && flowerStarted
+    ) {
+        flowerStarted = false;
+        startFlowerReveal();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
